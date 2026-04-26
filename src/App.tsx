@@ -1,5 +1,6 @@
 import { useFetch } from "./hooks/useFetch";
 import type { PokemonListResponse } from "./types/pokemon";
+import { PokemonCard } from "./components/PokemonCard";
 
 function App() {
   const { data, loading, error } = useFetch<PokemonListResponse>(
@@ -12,11 +13,11 @@ function App() {
       {loading && <p>Загрузка...</p>}
       {error && <p>Ошибка: {error}</p>}
       {data && (
-        <ul>
+        <div>
           {data.results.map((pokemon) => (
-            <li key={pokemon.name}>{pokemon.name}</li>
+            <PokemonCard key={pokemon.name} name={pokemon.name} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
