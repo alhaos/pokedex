@@ -18,17 +18,20 @@ function App() {
     ) ?? [];
 
   return (
-    <div>
-      <h1>Pokédex</h1>
-      <input
-        type="text"
-        placeholder="Поиск покемона..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      {loading && <p>Загрузка...</p>}
-      {error && <p>Ошибка: {error}</p>}
-      {
+    <div className="app">
+      <header className="header">
+        <h1>Pokédex</h1>
+        <input
+          type="text"
+          placeholder="Поиск покемона..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </header>
+
+      <main>
+        {loading && <p>Загрузка...</p>}
+        {error && <p>Ошибка: {error}</p>}
         <div className="grid">
           {filtered.map((pokemon) => (
             <PokemonCard
@@ -38,16 +41,21 @@ function App() {
             />
           ))}
         </div>
-      }
 
-      <div>
-        <button onClick={() => setOffset(offset - 20)} disabled={offset === 0}>
-          Назад
-        </button>
-        <button onClick={() => setOffset(offset + 20)} disabled={!data?.next}>
-          Вперед
-        </button>
-      </div>
+        <div className="pagination">
+          <button
+            onClick={() => setOffset(offset - 20)}
+            disabled={offset === 0}
+          >
+            ← Назад
+          </button>
+          <span>{offset / 20 + 1}</span>
+          <button onClick={() => setOffset(offset + 20)} disabled={!data?.next}>
+            Вперёд →
+          </button>
+        </div>
+      </main>
+
       {selected && (
         <PokemonModal name={selected} onClose={() => setSelected(null)} />
       )}
