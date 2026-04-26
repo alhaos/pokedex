@@ -5,22 +5,34 @@ import { useState } from "react";
 
 function App() {
   const [offset, setOffset] = useState(0);
+  const [search, setSearch] = useState("");
   const { data, loading, error } = useFetch<PokemonListResponse>(
     `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`,
   );
 
+  const filtered =
+    data?.results.filter((pokemon) =>
+      pokemon.name.includes(search.toLowerCase()),
+    ) ?? [];
+
   return (
     <div>
       <h1>Pokédex</h1>
+      <input
+        type="text"
+        placeholder="Поиск покемона..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       {loading && <p>Загрузка...</p>}
       {error && <p>Ошибка: {error}</p>}
-      {data && (
+      {
         <div className="grid">
-          {data.results.map((pokemon) => (
+          {filtered.map((pokemon) => (
             <PokemonCard key={pokemon.name} name={pokemon.name} />
           ))}
         </div>
-      )}
+      }
 
       <div>
         <button onClick={() => setOffset(offset - 20)} disabled={offset === 0}>
