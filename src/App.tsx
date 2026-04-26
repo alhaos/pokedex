@@ -13,7 +13,7 @@ function App() {
       {loading && <p>Загрузка...</p>}
       {error && <p>Ошибка: {error}</p>}
       {data && (
-        <div>
+        <div className="grid">
           {data.results.map((pokemon) => (
             <PokemonCard key={pokemon.name} name={pokemon.name} />
           ))}

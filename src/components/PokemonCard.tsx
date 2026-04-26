@@ -24,12 +24,17 @@ export function PokemonCard({ name }: PokemonCardProps) {
   }
 
   return (
-    <div>
+    <div className="card">
       <img
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={pokemon.name}
       />
       <h2>{pokemon.name}</h2>
+      <div>
+        {pokemon.types.map(({ type }) => (
+          <span key={type.name}>{type.name}</span>
+        ))}
+      </div>
     </div>
   );
 }
