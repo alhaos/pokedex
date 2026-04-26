@@ -50,3 +50,35 @@ body {
     height: 120px;
     object-fit: contain;
 }
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.modal img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.modal h2 {
+    text-transform: capitalize;
+    margin: 12px 0 8px;
+    font-size: 24px;
+}

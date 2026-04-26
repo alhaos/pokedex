@@ -3,9 +3,10 @@ import type { Pokemon } from "../types/pokemon";
 
 interface PokemonCardProps {
   name: string;
+  onClick: (name: string) => void;
 }
 
-export function PokemonCard({ name }: PokemonCardProps) {
+export function PokemonCard({ name, onClick }: PokemonCardProps) {
   const {
     data: pokemon,
     loading,
@@ -24,7 +25,7 @@ export function PokemonCard({ name }: PokemonCardProps) {
   }
 
   return (
-    <div className="card">
+    <div className="card" onClick={() => onClick(name)}>
       <img
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={pokemon.name}

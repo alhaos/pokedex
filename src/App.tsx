@@ -2,10 +2,12 @@ import { useFetch } from "./hooks/useFetch";
 import type { PokemonListResponse } from "./types/pokemon";
 import { PokemonCard } from "./components/PokemonCard";
 import { useState } from "react";
+import { PokemonModal } from "./components/PokemonModal";
 
 function App() {
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<string | null>(null);
   const { data, loading, error } = useFetch<PokemonListResponse>(
     `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`,
   );
@@ -29,7 +31,11 @@ function App() {
       {
         <div className="grid">
           {filtered.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} />
+            <PokemonCard
+              key={pokemon.name}
+              name={pokemon.name}
+              onClick={setSelected}
+            />
           ))}
         </div>
       }
@@ -42,6 +48,9 @@ function App() {
           Вперед
         </button>
       </div>
+      {selected && (
+        <PokemonModal name={selected} onClose={() => setSelected(null)} />
+      )}
     </div>
   );
 }
